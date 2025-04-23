@@ -62,7 +62,7 @@ public class ATM {
 
     @JsonProperty("services")
     @OneToMany(mappedBy = "atm", cascade = CascadeType.ALL)
-    private List<ATMService> services;
+    private List<ATMServiceCode> services;
 
     @OneToMany(mappedBy = "atm", cascade = CascadeType.ALL)
     private List<WeeklyHours> weeklyHours;  // Haftalık saatler

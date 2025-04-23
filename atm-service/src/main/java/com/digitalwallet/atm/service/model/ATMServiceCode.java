@@ -16,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ATMService {
+public class ATMServiceCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
