@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Atm {
+public class ATM {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -29,7 +30,7 @@ public class Atm {
 
     @Enumerated(EnumType.STRING)
     @JsonProperty("atm_type")
-    private AtmType type;
+    private ATMType type;
 
     @JsonProperty("is_accessible")
     private boolean isAccessible;
@@ -61,7 +62,7 @@ public class Atm {
 
     @JsonProperty("services")
     @OneToMany(mappedBy = "atm", cascade = CascadeType.ALL)
-    private List<AtmService> services;
+    private List<ATMService> services;
 
     @OneToMany(mappedBy = "atm", cascade = CascadeType.ALL)
     private List<WeeklyHours> weeklyHours;  // Haftalık saatler
@@ -73,5 +74,17 @@ public class Atm {
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;  // ATM'nin coğrafi konumu
 
+    @JsonProperty("create_date")
+    private LocalDateTime createDate;
+
+    @JsonProperty("last_update_date")
+    private LocalDateTime lastUpdateDate;
+
+
+    @PrePersist
+    public void init() {
+        this.createDate = LocalDateTime.now();  // Olusturma tarihini otomatik olarak ayarla
+        this.lastUpdateDate = LocalDateTime.now();
+    }
 
 }

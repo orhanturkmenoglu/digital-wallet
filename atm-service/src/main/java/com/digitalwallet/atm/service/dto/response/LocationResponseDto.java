@@ -1,25 +1,17 @@
-package com.digitalwallet.atm.service.model;
+package com.digitalwallet.atm.service.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
-@Table(name = "location")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Location {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class LocationResponseDto {
     private UUID id;
 
     private double latitude;
@@ -30,11 +22,4 @@ public class Location {
 
     @JsonProperty("last_update_date")
     private LocalDateTime lastUpdateDate;
-
-
-    @PrePersist
-    public void init() {
-        this.createDate = LocalDateTime.now();  // Olusturma tarihini otomatik olarak ayarla
-        this.lastUpdateDate = LocalDateTime.now();
-    }
 }
