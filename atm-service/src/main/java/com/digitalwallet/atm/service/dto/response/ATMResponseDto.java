@@ -1,6 +1,6 @@
 package com.digitalwallet.atm.service.dto.response;
 
-import com.digitalwallet.atm.service.model.ATMType;
+import com.digitalwallet.atm.service.enums.ATMType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;

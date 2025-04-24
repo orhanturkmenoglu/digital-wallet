@@ -1,6 +1,6 @@
 package com.digitalwallet.atm.service.dto.request;
 
-import com.digitalwallet.atm.service.model.ATMType;
+import com.digitalwallet.atm.service.enums.ATMType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

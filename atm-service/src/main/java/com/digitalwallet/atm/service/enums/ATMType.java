@@ -1,4 +1,4 @@
-package com.digitalwallet.atm.service.model;
+package com.digitalwallet.atm.service.enums;
 
 public enum ATMType {
     CASH_ONLY,          // Sadece nakit çekme

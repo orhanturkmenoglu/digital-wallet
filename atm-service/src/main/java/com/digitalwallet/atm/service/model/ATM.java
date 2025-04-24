@@ -1,6 +1,7 @@
 package com.digitalwallet.atm.service.model;
 
 
+import com.digitalwallet.atm.service.enums.ATMType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
