@@ -1,6 +1,5 @@
 package com.digitalwallet.atm.service.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,12 +24,9 @@ public class Location {
     private double latitude;
     private double longitude;
 
-    @JsonProperty("create_date")
     private LocalDateTime createDate;
 
-    @JsonProperty("last_update_date")
     private LocalDateTime lastUpdateDate;
-
 
     @PrePersist
     public void init() {

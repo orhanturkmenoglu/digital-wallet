@@ -1,6 +1,5 @@
 package com.digitalwallet.atm.service.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,19 +22,14 @@ public class ATMServiceCode {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "atm_id",referencedColumnName = "atm_id")
+    @JoinColumn(name = "atm_id", referencedColumnName = "atm_id")
     private ATM atm;
 
-    @JsonProperty("service_code")
     private String serviceCode;
 
-
-    @JsonProperty("create_date")
     private LocalDateTime createDate;
 
-    @JsonProperty("last_update_date")
     private LocalDateTime lastUpdateDate;
-
 
     @PrePersist
     public void init() {

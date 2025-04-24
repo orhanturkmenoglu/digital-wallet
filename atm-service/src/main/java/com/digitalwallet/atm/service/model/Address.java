@@ -20,44 +20,34 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonProperty("address_id")
     private UUID id;
 
     @ManyToOne  // ATM ile ilişki
     @JoinColumn(name = "atm_id")  // ATM'yi bağlayan dış anahtar
     private ATM atm;
 
-    @JsonProperty("line_1")
     @Column(name = "address_line_1")
     private String line1;
 
-    @JsonProperty("line_2")
     @Column(name = "address_line_2")
     private String line2;
 
-    @JsonProperty("city")
     @Column(name = "city")
     private String city;
 
-    @JsonProperty("state")
     @Column(name = "state")
     private String state;
 
-    @JsonProperty("country_code")
     @Column(name = "country_code")
     private String countryCode;
 
-    @JsonProperty("postcode")
     @Column(name = "postcode")
     private String postcode;
 
 
-    @JsonProperty("create_date")
     private LocalDateTime createDate;
 
-    @JsonProperty("last_update_date")
     private LocalDateTime lastUpdateDate;
-
 
     @PrePersist
     public void init() {
