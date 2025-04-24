@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ATMResponseDto {
+public class ATMResponseDTO {
     @JsonProperty("atm_id")
     private String id;
 

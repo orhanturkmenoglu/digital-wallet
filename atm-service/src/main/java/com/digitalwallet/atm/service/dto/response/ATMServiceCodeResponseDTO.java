@@ -11,11 +11,15 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LocationResponseDto {
-    private UUID id;
+public class ATMServiceCodeResponseDTO {
+    @JsonProperty("service_id")
+    private UUID id; // AtmService tablosundaki ID
 
-    private double latitude;
-    private double longitude;
+    @JsonProperty("atm_id")
+    private String atmId; // İlişkili ATM ID
+
+    @JsonProperty("service_code")
+    private String serviceCode;
 
     @JsonProperty("create_date")
     private LocalDateTime createDate;

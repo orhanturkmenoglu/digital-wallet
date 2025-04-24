@@ -3,7 +3,7 @@ spring:
         name: ATM-SERVICE
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/ATM}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/digital-wallet}
     username: ${SPRING_DATASOURCE_USERNAME:root}
     password: ${SPRING_DATASOURCE_PASSWORD:12345}
     driver-class-name: com.mysql.cj.jdbc.Driver

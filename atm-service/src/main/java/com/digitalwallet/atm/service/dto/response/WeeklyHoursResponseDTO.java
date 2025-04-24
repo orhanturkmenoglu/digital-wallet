@@ -11,7 +11,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class WeeklyHoursResponseDto {
+public class WeeklyHoursResponseDTO {
     private UUID id;
 
     private String openingTime;

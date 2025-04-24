@@ -11,30 +11,11 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressResponseDto {
-    @JsonProperty("address_id")
+public class LocationResponseDTO {
     private UUID id;
 
-    @JsonProperty("atm_id")
-    private String atmId;
-
-    @JsonProperty("line_1")
-    private String line1;
-
-    @JsonProperty("line_2")
-    private String line2;
-
-    @JsonProperty("city")
-    private String city;
-
-    @JsonProperty("state")
-    private String state;
-
-    @JsonProperty("country_code")
-    private String countryCode;
-
-    @JsonProperty("postcode")
-    private String postcode;
+    private double latitude;
+    private double longitude;
 
     @JsonProperty("create_date")
     private LocalDateTime createDate;

@@ -22,7 +22,7 @@ public class ATMServiceCode {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "atm_id", referencedColumnName = "atm_id")
+    @JoinColumn(name = "atm_id", referencedColumnName = "id")
     private ATM atm;
 
     private String serviceCode;
