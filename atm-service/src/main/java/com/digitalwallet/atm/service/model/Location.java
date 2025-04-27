@@ -1,14 +1,19 @@
 package com.digitalwallet.atm.service.model;
 
-import jakarta.persistence.*;
+import com.digitalwallet.atm.service.utils.IdGenerator;
+import com.digitalwallet.atm.service.utils.Prefix;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
+@Prefix("loc")
 @Entity
 @Table(name = "location")
 @Data
@@ -18,8 +23,7 @@ import java.util.UUID;
 public class Location {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private String id;
 
     private double latitude;
     private double longitude;
@@ -30,6 +34,9 @@ public class Location {
 
     @PrePersist
     public void init() {
+        if (this.id == null) {
+            this.id = IdGenerator.generateId(this);
+        }
         this.createDate = LocalDateTime.now();  // Olusturma tarihini otomatik olarak ayarla
         this.lastUpdateDate = LocalDateTime.now();
     }

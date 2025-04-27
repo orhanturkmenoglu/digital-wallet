@@ -1,5 +1,7 @@
 package com.digitalwallet.atm.service.model;
 
+import com.digitalwallet.atm.service.utils.IdGenerator;
+import com.digitalwallet.atm.service.utils.Prefix;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,8 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
+@Prefix(value = "atm-code")
 @Entity
 @Table(name = "atm_service")
 @Data
@@ -18,8 +20,7 @@ import java.util.UUID;
 public class ATMServiceCode {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private String id;
 
     @ManyToOne
     @JoinColumn(name = "atm_id", referencedColumnName = "id")
@@ -33,6 +34,9 @@ public class ATMServiceCode {
 
     @PrePersist
     public void init() {
+        if (this.id == null) {
+            this.id = IdGenerator.generateId(this);
+        }
         this.createDate = LocalDateTime.now();  // Olusturma tarihini otomatik olarak ayarla
         this.lastUpdateDate = LocalDateTime.now();
     }
