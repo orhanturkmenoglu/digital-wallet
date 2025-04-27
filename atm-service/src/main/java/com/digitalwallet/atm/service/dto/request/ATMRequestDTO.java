@@ -1,6 +1,9 @@
 package com.digitalwallet.atm.service.dto.request;
 
 import com.digitalwallet.atm.service.enums.ATMType;
+import com.digitalwallet.atm.service.model.ATMServiceCode;
+import com.digitalwallet.atm.service.model.Address;
+import com.digitalwallet.atm.service.model.WeeklyHours;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -49,15 +52,15 @@ public class ATMRequestDTO {
 
     @NotNull(message = "Services cannot be null") // Services null olamaz
     @Size(min = 1, message = "At least one service is required") // En az bir hizmet olmalı
-    private List<String> services; // Hizmetler için daha ayrıntılı sınıflar oluşturulabilir.
+    private List<ATMServiceCode> services; // Hizmetler için daha ayrıntılı sınıflar oluşturulabilir.
 
     @NotNull(message = "Weekly hours cannot be null") // Weekly hours null olamaz
     @Size(min = 1, message = "At least one weekly hour is required") // En az bir hafta saati olmalı
-    private List<String> weeklyHours; // Haftalık saatler için DTO oluşturulabilir.
+    private List<WeeklyHours> weeklyHours; // Haftalık saatler için DTO oluşturulabilir.
 
     @NotNull(message = "Addresses cannot be null") // Addresses null olamaz
     @Size(min = 1, message = "At least one address is required") // En az bir adres olmalı
-    private List<String> addresses; // Adresler için DTO'lar oluşturulabilir.
+    private List<Address> addresses; // Adresler için DTO'lar oluşturulabilir.
 
     @NotNull(message = "Location ID cannot be null") // Location ID null olamaz
     @Size(min = 1, max = 50, message = "Location ID must be between 1 and 50 characters") // Location ID uzunluğu 1-50 arasında olmalı

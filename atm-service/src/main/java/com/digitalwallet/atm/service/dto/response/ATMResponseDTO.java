@@ -1,6 +1,9 @@
 package com.digitalwallet.atm.service.dto.response;
 
 import com.digitalwallet.atm.service.enums.ATMType;
+import com.digitalwallet.atm.service.model.ATMServiceCode;
+import com.digitalwallet.atm.service.model.Address;
+import com.digitalwallet.atm.service.model.WeeklyHours;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,13 +47,13 @@ public class ATMResponseDTO {
     private List<String> supportedLanguages;
 
     @JsonProperty("services")
-    private List<String> services; // Hizmetler için daha ayrıntılı sınıflar oluşturulabilir.
+    private List<ATMServiceCode> services; // Hizmetler için daha ayrıntılı sınıflar oluşturulabilir.
 
     @JsonProperty("weekly_hours")
-    private List<String> weeklyHours;  // Haftalık saatler için benzer şekilde DTO oluşturulabilir.
+    private List<WeeklyHours> weeklyHours;  // Haftalık saatler için benzer şekilde DTO oluşturulabilir.
 
     @JsonProperty("addresses")
-    private List<String> addresses;  // Adresler için uygun DTO'lar oluşturulabilir.
+    private List<Address> addresses;  // Adresler için uygun DTO'lar oluşturulabilir.
 
     @JsonProperty("location")
     private String location;  // Konum detayları için LocationDTO dönebiliriz.
