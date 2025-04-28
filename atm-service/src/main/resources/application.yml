@@ -1,6 +1,6 @@
 spring:
   application:
-        name: ATM-SERVICE
+    name: ATM-SERVICE
 
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/digital-wallet}
@@ -20,3 +20,11 @@ logging:
     org:
       springframework:
         web: DEBUG
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
