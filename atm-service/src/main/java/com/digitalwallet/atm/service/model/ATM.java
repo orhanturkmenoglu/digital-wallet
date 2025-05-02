@@ -78,4 +78,9 @@ public class ATM {
         this.lastUpdateDate = LocalDateTime.now();
     }
 
+    @PreUpdate
+    public void updateLastUpdateDate() {
+        this.lastUpdateDate = LocalDateTime.now();
+    }
+
 }

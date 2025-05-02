@@ -42,4 +42,9 @@ public class WeeklyHours {
         this.createDate = LocalDateTime.now();  // Olusturma tarihini otomatik olarak ayarla
         this.lastUpdateDate = LocalDateTime.now();
     }
+
+    @PreUpdate
+    public void updateLastUpdateDate() {
+        this.lastUpdateDate = LocalDateTime.now();
+    }
 }

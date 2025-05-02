@@ -3,6 +3,7 @@ package com.digitalwallet.atm.service.dto.request;
 import com.digitalwallet.atm.service.enums.ATMType;
 import com.digitalwallet.atm.service.model.ATMServiceCode;
 import com.digitalwallet.atm.service.model.Address;
+import com.digitalwallet.atm.service.model.Location;
 import com.digitalwallet.atm.service.model.WeeklyHours;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMin;
@@ -80,5 +81,5 @@ public class ATMRequestDTO {
     @NotNull(message = "Location ID cannot be null")
     @Size(min = 1, max = 50, message = "Location ID must be between 1 and 50 characters")
     @Schema(description = "Unique identifier for the ATM's location", example = "LOC12345")
-    private String locationId;
+    private Location location;
 }

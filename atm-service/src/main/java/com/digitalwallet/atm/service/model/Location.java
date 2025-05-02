@@ -2,10 +2,7 @@ package com.digitalwallet.atm.service.model;
 
 import com.digitalwallet.atm.service.utils.IdGenerator;
 import com.digitalwallet.atm.service.utils.Prefix;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,6 +35,12 @@ public class Location {
             this.id = IdGenerator.generateId(this);
         }
         this.createDate = LocalDateTime.now();  // Olusturma tarihini otomatik olarak ayarla
+        this.lastUpdateDate = LocalDateTime.now();
+    }
+
+
+    @PreUpdate
+    public void updateLastUpdateDate() {
         this.lastUpdateDate = LocalDateTime.now();
     }
 }

@@ -3,6 +3,7 @@ package com.digitalwallet.atm.service.dto.response;
 import com.digitalwallet.atm.service.enums.ATMType;
 import com.digitalwallet.atm.service.model.ATMServiceCode;
 import com.digitalwallet.atm.service.model.Address;
+import com.digitalwallet.atm.service.model.Location;
 import com.digitalwallet.atm.service.model.WeeklyHours;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -56,7 +57,7 @@ public class ATMResponseDTO {
     private List<Address> addresses;  // Adresler için uygun DTO'lar oluşturulabilir.
 
     @JsonProperty("location")
-    private String location;  // Konum detayları için LocationDTO dönebiliriz.
+    private Location location;  // Konum detayları için LocationDTO dönebiliriz.
 
     @JsonProperty("create_date")
     private LocalDateTime createDate;
