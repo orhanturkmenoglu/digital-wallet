@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Prefix(value = "atm-code")
 @Entity
@@ -21,12 +22,10 @@ public class ATMServiceCode {
 
     @Id
     private String id;
-
-    @ManyToOne
-    @JoinColumn(name = "atm_id", referencedColumnName = "id")
-    private ATM atm;
-
     private String serviceCode;
+
+    @ManyToMany(mappedBy = "services", cascade = CascadeType.ALL)
+    private List<ATM> atms;
 
     private LocalDateTime createDate;
 

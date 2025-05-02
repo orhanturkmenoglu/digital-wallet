@@ -45,20 +45,22 @@ public class ATM {
     @Column(name = "currency")
     private List<String> supportedCurrencies;
 
-
     @ElementCollection
     @CollectionTable(name = "atm_supported_languages", joinColumns = @JoinColumn(name = "atm_id"))
     @Column(name = "language")
     private List<String> supportedLanguages;
 
-    @OneToMany(mappedBy = "atm", cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "atm_service_code",
+            joinColumns = @JoinColumn(name = "atm_id"),
+            inverseJoinColumns = @JoinColumn(name = "service_code_id")
+    )
     private List<ATMServiceCode> services;
-
-    @OneToMany(mappedBy = "atm", cascade = CascadeType.ALL)
-    private List<WeeklyHours> weeklyHours;  // Haftalık saatler
-
-    @OneToMany(mappedBy = "atm", cascade = CascadeType.ALL)  // Bir ATM'nin birden fazla adresi olabilir
-    private List<Address> addresses;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", referencedColumnName = "id")

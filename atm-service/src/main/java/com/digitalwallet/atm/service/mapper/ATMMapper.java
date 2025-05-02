@@ -8,44 +8,42 @@ import org.springframework.stereotype.Component;
 @Component
 public class ATMMapper {
 
-
-    public static ATM toATM(ATMRequestDTO atmRequestDTO) {
-        ATM atm = new ATM();
-        atm.setId(atmRequestDTO.getId());
-        atm.setBankId(atmRequestDTO.getBankId());
-        atm.setType(atmRequestDTO.getType());
-        atm.setAccessible(atmRequestDTO.isAccessible());
-        atm.setHasDepositCapability(atmRequestDTO.isHasDepositCapability());
-        atm.setBalanceInquiryFee(atmRequestDTO.getBalanceInquiryFee());
-        atm.setCashWithdrawalNationalFee(atmRequestDTO.getCashWithdrawalNationalFee());
-        atm.setCashWithdrawalInternationalFee(atmRequestDTO.getCashWithdrawalInternationalFee());
-        atm.setSupportedCurrencies(atmRequestDTO.getSupportedCurrencies());
-        atm.setSupportedLanguages(atmRequestDTO.getSupportedLanguages());
-        atm.setServices(atmRequestDTO.getServices());
-        atm.setWeeklyHours(atmRequestDTO.getWeeklyHours());
-        atm.setAddresses(atmRequestDTO.getAddresses());
-
-        return atm;
-
+    public static ATM mapToATM(ATMRequestDTO dto) {
+        return ATM.builder()
+                .bankId(dto.getBankId())
+                .type(dto.getType())
+                .isAccessible(dto.isAccessible())
+                .hasDepositCapability(dto.isHasDepositCapability())
+                .balanceInquiryFee(dto.getBalanceInquiryFee())
+                .cashWithdrawalNationalFee(dto.getCashWithdrawalNationalFee())
+                .cashWithdrawalInternationalFee(dto.getCashWithdrawalInternationalFee())
+                .supportedCurrencies(dto.getSupportedCurrencies())
+                .supportedLanguages(dto.getSupportedLanguages())
+                .address(AddressMapper.mapToAddress(dto.getAddresses()))
+                .services(ATMServiceCodeMapper.mapToATMServiceList(dto.getServices()))
+                .location(LocationMapper.mapToLocation(dto.getLocation()))
+                .build();
     }
 
-    public static ATMResponseDTO toAtmResponseDTO(ATM atm) {
-        ATMResponseDTO atmResponseDTO = new ATMResponseDTO();
-        atmResponseDTO.setId(atm.getId());
-        atmResponseDTO.setBankId(atm.getBankId());
-        atmResponseDTO.setType(atm.getType());
-        atmResponseDTO.setAccessible(atm.isAccessible());
-        atmResponseDTO.setHasDepositCapability(atm.isHasDepositCapability());
-        atmResponseDTO.setBalanceInquiryFee(atm.getBalanceInquiryFee());
-        atmResponseDTO.setCashWithdrawalNationalFee(atm.getCashWithdrawalNationalFee());
-        atmResponseDTO.setCashWithdrawalInternationalFee(atm.getCashWithdrawalInternationalFee());
-        atmResponseDTO.setSupportedCurrencies(atm.getSupportedCurrencies());
-        atmResponseDTO.setSupportedLanguages(atm.getSupportedLanguages());
-        atmResponseDTO.setServices(atm.getServices());
-        atmResponseDTO.setWeeklyHours(atm.getWeeklyHours());
-        atmResponseDTO.setAddresses(atm.getAddresses());
-        atmResponseDTO.setLocation(atm.getLocation());
-        return atmResponseDTO;
-    }
 
+    public static ATMResponseDTO mapToResponseDTO(ATM atm) {
+        return ATMResponseDTO.builder()
+                .id(atm.getId())
+                .bankId(atm.getBankId())
+                .type(atm.getType())
+                .isAccessible(atm.isAccessible())
+                .hasDepositCapability(atm.isHasDepositCapability())
+                .balanceInquiryFee(atm.getBalanceInquiryFee())
+                .cashWithdrawalNationalFee(atm.getCashWithdrawalNationalFee())
+                .cashWithdrawalInternationalFee(atm.getCashWithdrawalInternationalFee())
+                .supportedCurrencies(atm.getSupportedCurrencies())
+                .supportedLanguages(atm.getSupportedLanguages())
+                // ATM'ye özgü alanları atıyoruz
+                .addresses(AddressMapper.mapToResponse(atm.getAddress()))
+                .services(ATMServiceCodeMapper.mapToResponseDtoList(atm.getServices()))
+                .location(LocationMapper.mapToResponseDTO(atm.getLocation()))
+                .createDate(atm.getCreateDate())
+                .lastUpdateDate(atm.getLastUpdateDate())
+                .build();
+    }
 }

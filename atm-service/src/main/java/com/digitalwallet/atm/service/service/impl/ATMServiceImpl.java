@@ -9,6 +9,7 @@ import com.digitalwallet.atm.service.service.ATMService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,21 +20,24 @@ public class ATMServiceImpl implements ATMService {
 
     private final ATMRepository atmRepository;
 
+    @Transactional
     @Override
     public ATMResponseDTO createATM(ATMRequestDTO atmRequestDTO) {
 
-        ATM atm = ATMMapper.toATM(atmRequestDTO);
+        ATM atm = ATMMapper.mapToATM(atmRequestDTO);
         log.info("ATMRequestDTO: {}", atmRequestDTO);
+
         ATM savedATM = atmRepository.save(atm);
         log.info("Saving ATM: {}", atm);
 
-        ATMResponseDTO atmResponseDTO = ATMMapper.toAtmResponseDTO(savedATM);
+        ATMResponseDTO atmResponseDTO = ATMMapper.mapToResponseDTO(savedATM);
         log.info("ATMResponseDTO: {}", atmResponseDTO);
         log.info("Saved ATM: {}", atmResponseDTO);
 
         return atmResponseDTO;
     }
 
+    @Transactional
     @Override
     public ATMResponseDTO deleteATMID(String atmId) {
         return null;
@@ -44,6 +48,7 @@ public class ATMServiceImpl implements ATMService {
         return null;
     }
 
+    @Transactional
     @Override
     public ATMResponseDTO updateATM(String atmId) {
         return null;

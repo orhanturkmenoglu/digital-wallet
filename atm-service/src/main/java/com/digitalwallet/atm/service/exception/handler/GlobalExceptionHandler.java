@@ -35,6 +35,7 @@ public class GlobalExceptionHandler {
         for (FieldError error:bindingResult.getFieldErrors()){
             message.append(error.getField())
                     .append("-")
+                    .append(error.getRejectedValue())
                     .append(error.getDefaultMessage())
                     .append("; ");
         }
@@ -43,7 +44,7 @@ public class GlobalExceptionHandler {
                 .timeStamp(LocalDateTime.now())
                 .status(HttpStatus.BAD_REQUEST.value())
                 .errorCode(message.toString())
-                .message("Validation_ERROR")
+                .message("Validation_ERROR : ")
                 .build();
 
         return new ResponseEntity<>(apiErrorResponse, HttpStatus.BAD_REQUEST);

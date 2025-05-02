@@ -13,10 +13,6 @@ import lombok.NoArgsConstructor;
 @Schema(description = "DTO representing the service code request for a specific ATM.")
 public class ATMServiceCodeRequestDto {
 
-    @NotNull(message = "ATM ID cannot be null or empty")
-    @Schema(description = "Unique identifier for the ATM associated with the service", example = "ATM12345")
-    private String atmId;
-
     @NotNull(message = "Service code cannot be null or empty")
     @Size(min = 3, max = 10, message = "Service code must be between 3 and 10 characters")
     @Schema(description = "The service code for the ATM (e.g., \"CASH_WITHDRAWAL\")", example = "CASH_WITHDRAWAL")

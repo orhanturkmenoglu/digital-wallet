@@ -2,21 +2,19 @@ package com.digitalwallet.atm.service.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ATMServiceCodeResponseDTO {
     @JsonProperty("service_id")
-    private UUID id; // AtmService tablosundaki ID
-
-    @JsonProperty("atm_id")
-    private String atmId; // İlişkili ATM ID
+    private String id; // AtmService tablosundaki ID
 
     @JsonProperty("service_code")
     private String serviceCode;

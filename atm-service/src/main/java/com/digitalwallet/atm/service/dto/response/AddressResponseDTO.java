@@ -2,21 +2,19 @@ package com.digitalwallet.atm.service.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class AddressResponseDTO {
     @JsonProperty("address_id")
-    private UUID id;
-
-    @JsonProperty("atm_id")
-    private String atmId;
+    private String id;
 
     @JsonProperty("line_1")
     private String line1;
@@ -33,8 +31,8 @@ public class AddressResponseDTO {
     @JsonProperty("country_code")
     private String countryCode;
 
-    @JsonProperty("postcode")
-    private String postcode;
+    @JsonProperty("post_code")
+    private String postCode;
 
     @JsonProperty("create_date")
     private LocalDateTime createDate;

@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Prefix("address")
 @Entity
@@ -22,9 +23,8 @@ public class Address {
     @Id
     private String id;
 
-    @ManyToOne  // ATM ile ilişki
-    @JoinColumn(name = "atm_id")  // ATM'yi bağlayan dış anahtar
-    private ATM atm;
+    @OneToMany (mappedBy = "address")
+    private List<ATM> atms;
 
     @Column(name = "address_line_1")
     private String line1;
@@ -41,8 +41,8 @@ public class Address {
     @Column(name = "country_code")
     private String countryCode;
 
-    @Column(name = "postcode")
-    private String postcode;
+    @Column(name = "post_code")
+    private String postCode;
 
 
     private LocalDateTime createDate;

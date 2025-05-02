@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 public class Location {
 
     @Id
+    @Column(length = 255)
     private String id;
 
     private double latitude;
