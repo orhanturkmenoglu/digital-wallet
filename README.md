@@ -11,6 +11,8 @@ docker-compose up --build
 
 ## 🧠 Proje Hakkında
 
+**DigitalWallet**, geleneksel bankacılığı dijital dünyanın kolaylığıyla buluşturan, entegre finansal hizmetler sunan bir süper uygulamadır. Kullanıcılar sadece dijital cüzdan işlemleri yapmakla kalmaz, aynı zamanda bankalar ve ATM’lerle doğrudan etkileşime geçerek fiziksel-dijital geçişi kolayca yönetebilirler.
+
 **DigitalWallet**, modern dijital cüzdan ihtiyaçlarını karşılamak üzere tasarlanmış, ölçeklenebilir ve güvenli bir **mikroservis mimarisi** üzerine inşa edilmiştir. Spring Boot, Kafka, Redis, Docker ve diğer endüstri standartlarıyla hazırlanmış bu projede, kullanıcılar hesap açabilir, para transferi yapabilir, kart oluşturabilir ve çok daha fazlasını gerçekleştirebilir.
 
 ---
