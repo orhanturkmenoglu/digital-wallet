@@ -5,6 +5,8 @@ import com.digitalwallet.atm.service.dto.response.ATMResponseDTO;
 import com.digitalwallet.atm.service.model.ATM;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ATMMapper {
 
@@ -45,5 +47,9 @@ public class ATMMapper {
                 .createDate(atm.getCreateDate())
                 .lastUpdateDate(atm.getLastUpdateDate())
                 .build();
+    }
+
+    public static List<ATMResponseDTO> mapToResponseDTOList(List<ATM> atmList) {
+        return atmList.stream().map(ATMMapper::mapToResponseDTO).toList();
     }
 }
