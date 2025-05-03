@@ -5,10 +5,7 @@ import com.digitalwallet.atm.service.enums.ATMType;
 import com.digitalwallet.atm.service.utils.IdGenerator;
 import com.digitalwallet.atm.service.utils.Prefix;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,7 +13,8 @@ import java.util.List;
 @Prefix("atm")
 @Entity
 @Table(name = "atm")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -52,6 +50,7 @@ public class ATM {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @ToString.Exclude
     private Address address;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -60,6 +59,7 @@ public class ATM {
             joinColumns = @JoinColumn(name = "atm_id"),
             inverseJoinColumns = @JoinColumn(name = "service_code_id")
     )
+    @ToString.Exclude
     private List<ATMServiceCode> services;
 
     @OneToOne(cascade = CascadeType.ALL)

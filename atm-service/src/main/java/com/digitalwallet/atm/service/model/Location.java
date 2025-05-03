@@ -3,24 +3,21 @@ package com.digitalwallet.atm.service.model;
 import com.digitalwallet.atm.service.utils.IdGenerator;
 import com.digitalwallet.atm.service.utils.Prefix;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Prefix("loc")
 @Entity
 @Table(name = "location")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Location {
 
     @Id
-    @Column(length = 255)
     private String id;
 
     private double latitude;

@@ -3,10 +3,7 @@ package com.digitalwallet.atm.service.model;
 import com.digitalwallet.atm.service.utils.IdGenerator;
 import com.digitalwallet.atm.service.utils.Prefix;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,7 +11,8 @@ import java.util.List;
 @Prefix("address")
 @Entity
 @Table(name = "address")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -23,7 +21,7 @@ public class Address {
     @Id
     private String id;
 
-    @OneToMany (mappedBy = "address")
+    @OneToMany(mappedBy = "address")
     private List<ATM> atms;
 
     @Column(name = "address_line_1")
