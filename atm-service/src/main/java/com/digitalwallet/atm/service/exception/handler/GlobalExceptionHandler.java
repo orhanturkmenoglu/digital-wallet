@@ -2,7 +2,7 @@ package com.digitalwallet.atm.service.exception.handler;
 
 import com.digitalwallet.atm.service.exception.ATMNotFoundException;
 import com.digitalwallet.atm.service.exception.ApiErrorResponse;
-import com.digitalwallet.atm.service.exception.InvalidATMParametersException;
+import com.digitalwallet.atm.service.exception.ATMInvalidParametersException;
 import jakarta.validation.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +30,8 @@ public class GlobalExceptionHandler {
        return new ResponseEntity<>(apiErrorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(InvalidATMParametersException.class)
-    public ResponseEntity<ApiErrorResponse> handleInvalidATMParametersException(InvalidATMParametersException invalidATMParametersException,
+    @ExceptionHandler(ATMInvalidParametersException.class)
+    public ResponseEntity<ApiErrorResponse> handleInvalidATMParametersException(ATMInvalidParametersException invalidATMParametersException,
                                                                                 WebRequest request){
 
         ApiErrorResponse apiErrorResponse = ApiErrorResponse.builder()

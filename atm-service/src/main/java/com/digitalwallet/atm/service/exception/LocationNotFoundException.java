@@ -2,10 +2,9 @@ package com.digitalwallet.atm.service.exception;
 
 import org.springframework.http.HttpStatus;
 
+public class LocationNotFoundException extends BaseServiceException {
 
-public class ATMNotFoundException extends BaseServiceException {
-
-    public ATMNotFoundException(String message) {
+    public LocationNotFoundException(String message) {
         super(message, HttpStatus.NOT_FOUND);
     }
 }

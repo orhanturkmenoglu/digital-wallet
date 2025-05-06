@@ -39,4 +39,5 @@ public class LocationMapper {
                 .map(LocationMapper::mapToLocation)
                 .collect(Collectors.toList());
     }
+
 }

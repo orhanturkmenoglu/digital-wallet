@@ -2,7 +2,7 @@ package com.digitalwallet.atm.service.service.impl;
 
 import com.digitalwallet.atm.service.dto.response.AddressResponseDTO;
 import com.digitalwallet.atm.service.exception.AddressNotFoundException;
-import com.digitalwallet.atm.service.exception.InvalidAddressException;
+import com.digitalwallet.atm.service.exception.AddressInvalidParameterException;
 import com.digitalwallet.atm.service.mapper.AddressMapper;
 import com.digitalwallet.atm.service.model.Address;
 import com.digitalwallet.atm.service.repository.AddressRepository;
@@ -27,11 +27,11 @@ public class AddressServiceImpl implements AddressService {
 
         if (addressId == null) {
             log.error("Address ID cannot be null");
-            throw new InvalidAddressException("Address ID cannot be null");
+            throw new AddressInvalidParameterException("Address ID cannot be null");
         }
 
         Address address = addressRepository.findById(addressId)
-                .orElseThrow(() -> new InvalidAddressException("Address with ID " + addressId + " not found"));
+                .orElseThrow(() -> new AddressInvalidParameterException("Address with ID " + addressId + " not found"));
 
         AddressResponseDTO addressResponseDTO = AddressMapper.mapToResponse(address);
         log.info("Retrieved Address: {}", addressResponseDTO);
@@ -63,7 +63,7 @@ public class AddressServiceImpl implements AddressService {
     public List<AddressResponseDTO> findAddressesByCity(String city) {
         if (city == null) {
             log.error("City cannot be null");
-            throw new InvalidAddressException("City cannot be null");
+            throw new AddressInvalidParameterException("City cannot be null");
         }
 
         List<AddressResponseDTO> addressResponseDTOList = addressRepository.findAll()
@@ -81,7 +81,7 @@ public class AddressServiceImpl implements AddressService {
 
         if (postCode == null) {
             log.error("Postcode cannot be null");
-            throw new InvalidAddressException("Postcode cannot be null");
+            throw new AddressInvalidParameterException("Postcode cannot be null");
         }
 
         List<Address> addressList = addressRepository.findByPostCode(postCode);
@@ -101,7 +101,7 @@ public class AddressServiceImpl implements AddressService {
     public List<AddressResponseDTO> findAddressesByCountryCode(String countryCode) {
         if (countryCode == null) {
             log.error("Country code cannot be null");
-            throw new InvalidAddressException("Country code cannot be null");
+            throw new AddressInvalidParameterException("Country code cannot be null");
         }
 
         List<Address> addressList = addressRepository.findByCountryCode(countryCode);
@@ -121,7 +121,7 @@ public class AddressServiceImpl implements AddressService {
     public List<AddressResponseDTO> findAddressesByState(String state) {
         if (state == null) {
             log.error("State cannot be null");
-            throw new InvalidAddressException("State cannot be null");
+            throw new AddressInvalidParameterException("State cannot be null");
         }
 
         List<Address> addressList = addressRepository.findByState(state);
@@ -141,7 +141,7 @@ public class AddressServiceImpl implements AddressService {
     public List<AddressResponseDTO> findAddressesByLine1(String line1) {
         if (line1 == null) {
             log.error("Line1 cannot be null");
-            throw new InvalidAddressException("Line1 cannot be null");
+            throw new AddressInvalidParameterException("Line1 cannot be null");
         }
 
         List<Address> addressList = addressRepository.findByLine1(line1);
@@ -161,7 +161,7 @@ public class AddressServiceImpl implements AddressService {
     public List<AddressResponseDTO> findAddressesByLine2(String line2) {
         if (line2 == null) {
             log.error("Line2 cannot be null");
-            throw new InvalidAddressException("Line2 cannot be null");
+            throw new AddressInvalidParameterException("Line2 cannot be null");
         }
 
         List<Address> addressList = addressRepository.findByLine2(line2);

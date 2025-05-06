@@ -3,9 +3,9 @@ package com.digitalwallet.atm.service.exception;
 import org.springframework.http.HttpStatus;
 
 
-public class ATMNotFoundException extends BaseServiceException {
+public class ATMServiceCodeNotFoundException extends BaseServiceException {
 
-    public ATMNotFoundException(String message) {
+    public ATMServiceCodeNotFoundException(String message) {
         super(message, HttpStatus.NOT_FOUND);
     }
 }

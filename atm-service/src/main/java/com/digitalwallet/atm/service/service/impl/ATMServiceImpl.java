@@ -5,7 +5,7 @@ import com.digitalwallet.atm.service.dto.request.ATMUpdateRequestDTO;
 import com.digitalwallet.atm.service.dto.response.ATMResponseDTO;
 import com.digitalwallet.atm.service.exception.ATMNotFoundException;
 import com.digitalwallet.atm.service.exception.ApiSuccessResponse;
-import com.digitalwallet.atm.service.exception.InvalidATMParametersException;
+import com.digitalwallet.atm.service.exception.ATMInvalidParametersException;
 import com.digitalwallet.atm.service.mapper.ATMMapper;
 import com.digitalwallet.atm.service.mapper.ATMServiceCodeMapper;
 import com.digitalwallet.atm.service.mapper.AddressMapper;
@@ -116,27 +116,27 @@ public class ATMServiceImpl implements ATMService {
     private void validateBankAndAtmIds(String bankId, String atmId) {
         if (!StringUtils.hasText(bankId) || !StringUtils.hasText(atmId)) {
             log.error("Bank ID and ATM ID cannot be null");
-            throw new InvalidATMParametersException("Bank ID and ATM ID cannot be null");
+            throw new ATMInvalidParametersException("Bank ID and ATM ID cannot be null");
         }
     }
 
     private void validateAtmId(String atmId) {
         if (!StringUtils.hasText(atmId)) {
             log.error("ATM ID cannot be null");
-            throw new InvalidATMParametersException("ATM ID cannot be null");
+            throw new ATMInvalidParametersException("ATM ID cannot be null");
         }
     }
 
     private void validateCity(String city) {
         if (!StringUtils.hasText(city)) {
             log.error("City cannot be null");
-            throw new InvalidATMParametersException("City cannot be null");
+            throw new ATMInvalidParametersException("City cannot be null");
         }
     }
 
     private ATM findATMById(String atmId) {
         return atmRepository.findById(atmId)
-                .orElseThrow(() -> new InvalidATMParametersException("ATM with ID " + atmId + " not found"));
+                .orElseThrow(() -> new ATMInvalidParametersException("ATM with ID " + atmId + " not found"));
     }
 
     private void updateATMDetails(ATM existingATM, ATMUpdateRequestDTO atmUpdateRequestDTO) {
