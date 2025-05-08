@@ -21,6 +21,15 @@
         <module name="service-registry" />
         <module name="wallet-service" />
       </profile>
+      <profile name="Annotation profile for common" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="common" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="demo" target="17" />
@@ -37,6 +46,7 @@
       <module name="auth-service" options="-parameters" />
       <module name="bank-service" options="-parameters" />
       <module name="card-service" options="-parameters" />
+      <module name="common" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="customer-service" options="-parameters" />
       <module name="notification-service" options="-parameters" />
