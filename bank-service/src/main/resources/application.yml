@@ -1,0 +1,30 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: BANK-SERVICE
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://${MYSQL_HOST:localhost:3306}/${MYSQL_DATABASE:digital-wallet}}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:12345}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+  file:
+    name: logs/bank-service.log
+  charset:
+    file: UTF-8
