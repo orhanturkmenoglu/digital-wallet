@@ -1,15 +1,13 @@
 package com.digitalwallet.atm.service.mapper;
 
-import com.digitalwallet.atm.service.dto.request.ATMRequestDTO;
 import com.digitalwallet.atm.service.dto.request.ATMServiceCodeRequestDto;
 import com.digitalwallet.atm.service.dto.response.ATMServiceCodeResponseDTO;
 import com.digitalwallet.atm.service.model.ATMServiceCode;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+
 public class ATMServiceCodeMapper {
 
     public static ATMServiceCode mapToATMService(ATMServiceCodeRequestDto atmServiceCodeRequestDto) {

@@ -3,11 +3,9 @@ package com.digitalwallet.atm.service.mapper;
 import com.digitalwallet.atm.service.dto.request.ATMRequestDTO;
 import com.digitalwallet.atm.service.dto.response.ATMResponseDTO;
 import com.digitalwallet.atm.service.model.ATM;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class ATMMapper {
 
     public static ATM mapToATM(ATMRequestDTO dto) {

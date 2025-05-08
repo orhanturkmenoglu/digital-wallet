@@ -3,12 +3,10 @@ package com.digitalwallet.atm.service.mapper;
 import com.digitalwallet.atm.service.dto.request.LocationRequestDTO;
 import com.digitalwallet.atm.service.dto.response.LocationResponseDTO;
 import com.digitalwallet.atm.service.model.Location;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 public class LocationMapper {
 
     public static Location mapToLocation (LocationRequestDTO locationRequestDTO){
