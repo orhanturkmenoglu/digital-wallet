@@ -1,0 +1,11 @@
+server:
+  port: 9090
+
+
+spring:
+  application:
+    name: AUDIT-SERVICE
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/audit-service
