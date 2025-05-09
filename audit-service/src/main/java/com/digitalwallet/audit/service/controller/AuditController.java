@@ -4,9 +4,7 @@ import com.digitalwallet.audit.service.model.AuditLog;
 import com.digitalwallet.audit.service.service.AuditService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +14,12 @@ import java.util.List;
 public class AuditController {
 
     private final AuditService auditService;
+
+    @PostMapping
+    public ResponseEntity<String> createAudit(@RequestBody AuditLog auditLog) {
+        auditService.logAudit(auditLog);
+        return ResponseEntity.ok("Audit log saved successfully");
+    }
 
     @GetMapping
     public ResponseEntity<List<AuditLog>> getAllAudits() {
