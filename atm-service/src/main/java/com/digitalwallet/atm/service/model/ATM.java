@@ -6,8 +6,8 @@ import com.digitalwallet.atm.service.utils.IdGenerator;
 import com.digitalwallet.atm.service.utils.Prefix;
 import jakarta.persistence.*;
 import lombok.*;
+import org.digitalwallet.common.entity.BaseEntity;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Prefix("atm")
@@ -18,10 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ATM {
-
-    @Id
-    private String id;
+public class ATM extends BaseEntity {
 
     private String bankId;
 
@@ -64,25 +61,6 @@ public class ATM {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
-    private Location location;  // ATM'nin coğrafi konumu
-
-    private LocalDateTime createDate;
-
-    private LocalDateTime lastUpdateDate;
-
-
-    @PrePersist
-    public void init() {
-        if (this.id == null) {
-            this.id = IdGenerator.generateId(this);
-        }
-        this.createDate = LocalDateTime.now();  // Olusturma tarihini otomatik olarak ayarla
-        this.lastUpdateDate = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void updateLastUpdateDate() {
-        this.lastUpdateDate = LocalDateTime.now();
-    }
+    private Location location;
 
 }

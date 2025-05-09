@@ -2,10 +2,8 @@ package com.digitalwallet.bank.service.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.digitalwallet.common.utils.IdGenerator;
+import org.digitalwallet.common.entity.BaseEntity;
 import org.digitalwallet.common.utils.Prefix;
-
-import java.time.LocalDateTime;
 
 @Prefix("bank-address")
 @Entity
@@ -15,10 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Address {
-
-    @Id
-    private String id;
+public class Address extends BaseEntity {
 
     private String city;
     private String country;
@@ -29,25 +24,5 @@ public class Address {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "bank_id", referencedColumnName = "id")
     private Bank bank;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
-
-
-    @PrePersist
-    public void prePersist() {
-        if (id == null) {
-            this.id = IdGenerator.generateId(this);
-        }
-
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
 
 }

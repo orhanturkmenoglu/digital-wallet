@@ -3,12 +3,13 @@ package com.digitalwallet.atm.service.mapper;
 import com.digitalwallet.atm.service.dto.request.ATMRequestDTO;
 import com.digitalwallet.atm.service.dto.response.ATMResponseDTO;
 import com.digitalwallet.atm.service.model.ATM;
+import org.digitalwallet.common.mapper.BaseMapper;
 
-import java.util.List;
+public class ATMMapper extends BaseMapper<ATM, ATMRequestDTO,ATMResponseDTO> {
 
-public class ATMMapper {
 
-    public static ATM mapToATM(ATMRequestDTO dto) {
+    @Override
+    public ATM toEntity(ATMRequestDTO dto) {
         return ATM.builder()
                 .bankId(dto.getBankId())
                 .type(dto.getType())
@@ -25,29 +26,25 @@ public class ATMMapper {
                 .build();
     }
 
-
-    public static ATMResponseDTO mapToResponseDTO(ATM atm) {
+    @Override
+    public ATMResponseDTO toResponseDTO(ATM entity) {
         return ATMResponseDTO.builder()
-                .id(atm.getId())
-                .bankId(atm.getBankId())
-                .type(atm.getType())
-                .isAccessible(atm.isAccessible())
-                .hasDepositCapability(atm.isHasDepositCapability())
-                .balanceInquiryFee(atm.getBalanceInquiryFee())
-                .cashWithdrawalNationalFee(atm.getCashWithdrawalNationalFee())
-                .cashWithdrawalInternationalFee(atm.getCashWithdrawalInternationalFee())
-                .supportedCurrencies(atm.getSupportedCurrencies())
-                .supportedLanguages(atm.getSupportedLanguages())
+                .id(entity.getId())
+                .bankId(entity.getBankId())
+                .type(entity.getType())
+                .isAccessible(entity.isAccessible())
+                .hasDepositCapability(entity.isHasDepositCapability())
+                .balanceInquiryFee(entity.getBalanceInquiryFee())
+                .cashWithdrawalNationalFee(entity.getCashWithdrawalNationalFee())
+                .cashWithdrawalInternationalFee(entity.getCashWithdrawalInternationalFee())
+                .supportedCurrencies(entity.getSupportedCurrencies())
+                .supportedLanguages(entity.getSupportedLanguages())
                 // ATM'ye özgü alanları atıyoruz
-                .addresses(AddressMapper.mapToResponse(atm.getAddress()))
-                .services(ATMServiceCodeMapper.mapToResponseDtoList(atm.getServices()))
-                .location(LocationMapper.mapToResponseDTO(atm.getLocation()))
-                .createDate(atm.getCreateDate())
-                .lastUpdateDate(atm.getLastUpdateDate())
+                .addresses(AddressMapper.mapToResponse(entity.getAddress()))
+                .services(ATMServiceCodeMapper.mapToResponseDtoList(entity.getServices()))
+                .location(LocationMapper.mapToResponseDTO(entity.getLocation()))
                 .build();
     }
 
-    public static List<ATMResponseDTO> mapToResponseDTOList(List<ATM> atmList) {
-        return atmList.stream().map(ATMMapper::mapToResponseDTO).toList();
-    }
+
 }

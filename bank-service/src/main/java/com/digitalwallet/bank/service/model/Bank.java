@@ -4,10 +4,9 @@ package com.digitalwallet.bank.service.model;
 import com.digitalwallet.bank.service.enums.BankCode;
 import jakarta.persistence.*;
 import lombok.*;
-import org.digitalwallet.common.utils.IdGenerator;
+import org.digitalwallet.common.entity.BaseEntity;
 import org.digitalwallet.common.utils.Prefix;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Prefix("bank")
@@ -18,10 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Bank {
-
-    @Id
-    private String id;
+public class Bank extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "bank_code")
@@ -35,27 +31,8 @@ public class Bank {
     @Column(name = "web_site")
     private String webSite;
 
-    @OneToMany(mappedBy = "bank" ,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bank", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Address> addressList;
 
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
-
-
-    @PrePersist
-    public void prePersist() {
-        if (id == null) {
-            this.id = IdGenerator.generateId(this);
-        }
-
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
 
 }

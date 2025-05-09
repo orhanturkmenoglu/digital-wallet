@@ -29,8 +29,6 @@ public class AddressMapper {
                 .state(address.getState())
                 .postCode(address.getPostCode())
                 .countryCode(address.getCountryCode())
-                .createDate(address.getCreateDate())
-                .lastUpdateDate(address.getLastUpdateDate())
                 .build();
     }
 

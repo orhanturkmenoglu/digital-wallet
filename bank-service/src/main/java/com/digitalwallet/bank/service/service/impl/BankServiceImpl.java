@@ -26,6 +26,8 @@ public class BankServiceImpl implements BankService {
 
     private final BankRepository bankRepository;
 
+    private final BankMapper bankMapper;
+
     @Override
     public BankResponseDTO createBank(BankRequestDTO bankRequestDTO) {
 
@@ -40,18 +42,18 @@ public class BankServiceImpl implements BankService {
             throw new BankCodeAlreadyExistsException("Bank with code " + bankRequestDTO.getBankCode() + " already exists");
         }
 
-        Bank bank = BankMapper.mapToBank(bankRequestDTO);
+        Bank bank = bankMapper.toEntity(bankRequestDTO);
         Bank savedBank = bankRepository.save(bank);
         log.info("Saved bank: {}", savedBank);
 
-        return BankMapper.mapBankResponseDTO(savedBank);
+        return bankMapper.toResponseDTO(savedBank);
     }
 
     @Override
     public List<BankResponseDTO> getAllBanks() {
         List<Bank> bankList = bankRepository.findAll();
         log.info("Retrieved bank list: {}", bankList);
-        return BankMapper.mapToBankResponseDtoList(bankList);
+        return bankMapper.toResponseDTOList(bankList);
     }
 
     @Override
@@ -62,7 +64,7 @@ public class BankServiceImpl implements BankService {
                 .orElseThrow(() -> new BankNotFoundException("Bank not found"));
 
         log.info("Retrieved bank: {}", bank);
-        return BankMapper.mapBankResponseDTO(bank);
+        return bankMapper.toResponseDTO(bank);
     }
 
     @Override
@@ -91,7 +93,7 @@ public class BankServiceImpl implements BankService {
         Bank savedBank = bankRepository.save(bank);
         log.info("Updated bank: {}", savedBank);
 
-        return BankMapper.mapBankResponseDTO(savedBank);
+        return bankMapper.toResponseDTO(savedBank);
     }
 
     @Override

@@ -1,11 +1,13 @@
 package com.digitalwallet.atm.service.model;
 
-import com.digitalwallet.atm.service.utils.IdGenerator;
 import com.digitalwallet.atm.service.utils.Prefix;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.*;
+import org.digitalwallet.common.entity.BaseEntity;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Prefix("address")
@@ -16,10 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Address {
-
-    @Id
-    private String id;
+public class Address extends BaseEntity {
 
     @OneToMany(mappedBy = "address")
     private List<ATM> atms;
@@ -41,25 +40,5 @@ public class Address {
 
     @Column(name = "post_code")
     private String postCode;
-
-
-    private LocalDateTime createDate;
-
-    private LocalDateTime lastUpdateDate;
-
-    @PrePersist
-    public void init() {
-        if (this.id == null) {
-            this.id = IdGenerator.generateId(this);
-        }
-        this.createDate = LocalDateTime.now();  // Olusturma tarihini otomatik olarak ayarla
-        this.lastUpdateDate = LocalDateTime.now();
-    }
-
-
-    @PreUpdate
-    public void updateLastUpdateDate() {
-        this.lastUpdateDate = LocalDateTime.now();
-    }
 
 }

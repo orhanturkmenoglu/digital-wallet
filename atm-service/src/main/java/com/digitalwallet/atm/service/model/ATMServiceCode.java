@@ -1,11 +1,13 @@
 package com.digitalwallet.atm.service.model;
 
-import com.digitalwallet.atm.service.utils.IdGenerator;
 import com.digitalwallet.atm.service.utils.Prefix;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import lombok.*;
+import org.digitalwallet.common.entity.BaseEntity;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Prefix(value = "atm-code")
@@ -16,31 +18,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ATMServiceCode {
+public class ATMServiceCode extends BaseEntity {
 
-    @Id
-    private String id;
     private String serviceCode;
 
     @ManyToMany(mappedBy = "services", cascade = CascadeType.ALL)
     private List<ATM> atms;
-
-    private LocalDateTime createDate;
-
-    private LocalDateTime lastUpdateDate;
-
-    @PrePersist
-    public void init() {
-        if (this.id == null) {
-            this.id = IdGenerator.generateId(this);
-        }
-        this.createDate = LocalDateTime.now();  // Olusturma tarihini otomatik olarak ayarla
-        this.lastUpdateDate = LocalDateTime.now();
-    }
-
-
-    @PreUpdate
-    public void updateLastUpdateDate() {
-        this.lastUpdateDate = LocalDateTime.now();
-    }
 }

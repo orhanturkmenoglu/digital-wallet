@@ -1,11 +1,10 @@
 package com.digitalwallet.atm.service.model;
 
-import com.digitalwallet.atm.service.utils.IdGenerator;
 import com.digitalwallet.atm.service.utils.Prefix;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
-
-import java.time.LocalDateTime;
+import org.digitalwallet.common.entity.BaseEntity;
 
 @Prefix("loc")
 @Entity
@@ -15,30 +14,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Location {
-
-    @Id
-    private String id;
+public class Location extends BaseEntity {
 
     private double latitude;
     private double longitude;
 
-    private LocalDateTime createDate;
-
-    private LocalDateTime lastUpdateDate;
-
-    @PrePersist
-    public void init() {
-        if (this.id == null) {
-            this.id = IdGenerator.generateId(this);
-        }
-        this.createDate = LocalDateTime.now();  // Olusturma tarihini otomatik olarak ayarla
-        this.lastUpdateDate = LocalDateTime.now();
-    }
-
-
-    @PreUpdate
-    public void updateLastUpdateDate() {
-        this.lastUpdateDate = LocalDateTime.now();
-    }
 }

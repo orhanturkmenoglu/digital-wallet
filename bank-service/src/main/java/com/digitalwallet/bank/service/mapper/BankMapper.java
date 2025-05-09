@@ -4,24 +4,41 @@ import com.digitalwallet.bank.service.dto.request.BankRequestDTO;
 import com.digitalwallet.bank.service.dto.response.BankResponseDTO;
 import com.digitalwallet.bank.service.model.Address;
 import com.digitalwallet.bank.service.model.Bank;
+import org.digitalwallet.common.mapper.BaseMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-public class BankMapper {
+@Component
+public class BankMapper extends BaseMapper<Bank, BankRequestDTO, BankResponseDTO> {
 
-    public static Bank mapToBank(BankRequestDTO bankRequestDTO) {
+    @Override
+    public BankResponseDTO toResponseDTO(Bank entity) {
+        return BankResponseDTO.builder()
+                .id(entity.getId())
+                .bankCode(entity.getBankCode())
+                .fullName(entity.getFullName())
+                .logo(entity.getLogo())
+                .webSite(entity.getWebSite())
+                .address(AddressMapper.mapToAddressResponseDTOList(entity.getAddressList()))
+                .createdAt(entity.getCreatedAt())
+                .updatedAt(entity.getUpdatedAt())
+                .build();
+    }
 
+    @Override
+    public Bank toEntity(BankRequestDTO dto) {
         Bank bank = Bank.builder()
-                .bankCode(bankRequestDTO.getBankCode())
-                .fullName(bankRequestDTO.getFullName())
-                .logo(bankRequestDTO.getLogo())
-                .webSite(bankRequestDTO.getWebSite())
+                .bankCode(dto.getBankCode())
+                .fullName(dto.getFullName())
+                .logo(dto.getLogo())
+                .webSite(dto.getWebSite())
                 .build();
 
-        List<Address> addressList = AddressMapper.mapToAddressList(bankRequestDTO.getAddress());
+        List<Address> addressList = AddressMapper.mapToAddressList(dto.getAddress());
 
         for (Address address : addressList) {
-           address.setBank(bank);
+            address.setBank(bank);
         }
 
         bank.setAddressList(addressList);
@@ -29,22 +46,4 @@ public class BankMapper {
         return bank;
     }
 
-    public static BankResponseDTO mapBankResponseDTO(Bank bank) {
-        return BankResponseDTO.builder()
-                .id(bank.getId())
-                .bankCode(bank.getBankCode())
-                .fullName(bank.getFullName())
-                .logo(bank.getLogo())
-                .webSite(bank.getWebSite())
-                .address(AddressMapper.mapToAddressResponseDTOList(bank.getAddressList()))
-                .createdAt(bank.getCreatedAt())
-                .updatedAt(bank.getUpdatedAt())
-                .build();
-    }
-
-    public static List<BankResponseDTO> mapToBankResponseDtoList(List<Bank> banks) {
-        return banks.stream()
-                .map(BankMapper::mapBankResponseDTO)
-                .toList();
-    }
 }

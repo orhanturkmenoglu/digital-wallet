@@ -21,8 +21,6 @@ public class LocationMapper {
                 .id(location.getId())
                 .latitude(location.getLatitude())
                 .longitude(location.getLongitude())
-                .createDate(location.getCreateDate())
-                .lastUpdateDate(location.getLastUpdateDate())
                 .build();
     }
 
