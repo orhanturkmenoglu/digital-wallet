@@ -45,6 +45,8 @@ public class ATMMapper extends BaseMapper<ATM, ATMRequestDTO, ATMResponseDTO> {
                 .addresses(AddressMapper.mapToResponse(entity.getAddress()))
                 .services(ATMServiceCodeMapper.mapToResponseDtoList(entity.getServices()))
                 .location(LocationMapper.mapToResponseDTO(entity.getLocation()))
+                .createDate(entity.getCreatedAt())
+                .lastUpdateDate(entity.getUpdatedAt())
                 .build();
     }
 

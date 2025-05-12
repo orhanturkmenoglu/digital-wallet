@@ -20,6 +20,8 @@ public class ATMServiceCodeMapper {
         return ATMServiceCodeResponseDTO.builder()
                 .id(atmServiceCode.getId())
                 .serviceCode(atmServiceCode.getServiceCode())
+                .createDate(atmServiceCode.getCreatedAt())
+                .lastUpdateDate(atmServiceCode.getUpdatedAt())
                 .build();
     }
 
