@@ -2,15 +2,15 @@ package com.digitalwallet.atm.service.model;
 
 
 import com.digitalwallet.atm.service.enums.ATMType;
-import com.digitalwallet.atm.service.utils.IdGenerator;
-import com.digitalwallet.atm.service.utils.Prefix;
+
 import jakarta.persistence.*;
 import lombok.*;
 import org.digitalwallet.common.entity.BaseEntity;
+import org.digitalwallet.common.utils.Prefix;
 
 import java.util.List;
 
-@Prefix("atm")
+@Prefix("ATM")
 @Entity
 @Table(name = "atm")
 @Getter

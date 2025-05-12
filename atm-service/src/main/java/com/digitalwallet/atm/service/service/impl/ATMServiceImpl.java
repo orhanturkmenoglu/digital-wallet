@@ -3,9 +3,9 @@ package com.digitalwallet.atm.service.service.impl;
 import com.digitalwallet.atm.service.dto.request.ATMRequestDTO;
 import com.digitalwallet.atm.service.dto.request.ATMUpdateRequestDTO;
 import com.digitalwallet.atm.service.dto.response.ATMResponseDTO;
+import com.digitalwallet.atm.service.exception.ATMInvalidParametersException;
 import com.digitalwallet.atm.service.exception.ATMNotFoundException;
 import com.digitalwallet.atm.service.exception.ApiSuccessResponse;
-import com.digitalwallet.atm.service.exception.ATMInvalidParametersException;
 import com.digitalwallet.atm.service.mapper.ATMMapper;
 import com.digitalwallet.atm.service.mapper.ATMServiceCodeMapper;
 import com.digitalwallet.atm.service.mapper.AddressMapper;
@@ -18,13 +18,19 @@ import com.digitalwallet.atm.service.repository.ATMRepository;
 import com.digitalwallet.atm.service.service.ATMService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.digitalwallet.common.exception.BankNotFoundException;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -32,18 +38,43 @@ import java.util.List;
 public class ATMServiceImpl implements ATMService {
 
     private final ATMRepository atmRepository;
+    private final ATMMapper atmMapper;
+    private final RestTemplate restTemplate;
+
+    private final String BASE_URL = "http://localhost:8082/api/v1/banks/";
 
     @Transactional
     @Override
     public ATMResponseDTO createATM(ATMRequestDTO atmRequestDTO) {
         log.info("Creating ATM with data: {}", atmRequestDTO);
 
-        ATM atm = ATMMapper.mapToATM(atmRequestDTO);
+        if (Objects.isNull(atmRequestDTO)) {
+            log.error("ATMRequestDTO cannot be null");
+            throw new ATMInvalidParametersException("ATMRequestDTO cannot be null");
+        }
+
+        try {
+            String url = BASE_URL + atmRequestDTO.getBankId();
+            ResponseEntity<Void> response = restTemplate.exchange(url,
+                    HttpMethod.GET,
+                    null, Void.class);
+
+            if (!response.getStatusCode().is2xxSuccessful()) {
+                throw new BankNotFoundException("Bank with id " + atmRequestDTO.getBankId() + " not found");
+            }
+        } catch (HttpClientErrorException.NotFound e) {
+            throw new BankNotFoundException("Bank with id " + atmRequestDTO.getBankId() + " not found");
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+
+        ATM atm = atmMapper.toEntity(atmRequestDTO);
         ATM savedATM = atmRepository.save(atm);
 
         log.info("Saved ATM: {}", savedATM);
 
-        return ATMMapper.mapToResponseDTO(savedATM);
+        return atmMapper.toResponseDTO(savedATM);
     }
 
     @Override
@@ -69,7 +100,7 @@ public class ATMServiceImpl implements ATMService {
 
         log.info("Retrieved ATM: {}", existingATM);
 
-        return ATMMapper.mapToResponseDTO(existingATM);
+        return atmMapper.toResponseDTO(existingATM);
     }
 
     @Transactional
@@ -84,7 +115,7 @@ public class ATMServiceImpl implements ATMService {
 
         log.info("Updated ATM: {}", updatedAtm);
 
-        return ATMMapper.mapToResponseDTO(updatedAtm);
+        return atmMapper.toResponseDTO(updatedAtm);
     }
 
     @Override
@@ -96,7 +127,7 @@ public class ATMServiceImpl implements ATMService {
             throw new ATMNotFoundException("No ATMs found in the system");
         }
 
-        return ATMMapper.mapToResponseDTOList(atmList);
+        return atmMapper.toResponseDTOList(atmList);
     }
 
     @Override
@@ -110,7 +141,7 @@ public class ATMServiceImpl implements ATMService {
             throw new ATMNotFoundException("No ATMs found in the city: " + city);
         }
 
-        return ATMMapper.mapToResponseDTOList(atmList);
+        return atmMapper.toResponseDTOList(atmList);
     }
 
     private void validateBankAndAtmIds(String bankId, String atmId) {

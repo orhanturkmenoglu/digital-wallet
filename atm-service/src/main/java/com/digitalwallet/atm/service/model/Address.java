@@ -1,16 +1,16 @@
 package com.digitalwallet.atm.service.model;
 
-import com.digitalwallet.atm.service.utils.Prefix;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.*;
 import org.digitalwallet.common.entity.BaseEntity;
+import org.digitalwallet.common.utils.Prefix;
 
 import java.util.List;
 
-@Prefix("address")
+@Prefix("ADDR")
 @Entity
 @Table(name = "address")
 @Getter

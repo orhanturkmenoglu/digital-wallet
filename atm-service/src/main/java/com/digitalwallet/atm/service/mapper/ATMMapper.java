@@ -4,8 +4,10 @@ import com.digitalwallet.atm.service.dto.request.ATMRequestDTO;
 import com.digitalwallet.atm.service.dto.response.ATMResponseDTO;
 import com.digitalwallet.atm.service.model.ATM;
 import org.digitalwallet.common.mapper.BaseMapper;
+import org.springframework.stereotype.Component;
 
-public class ATMMapper extends BaseMapper<ATM, ATMRequestDTO,ATMResponseDTO> {
+@Component
+public class ATMMapper extends BaseMapper<ATM, ATMRequestDTO, ATMResponseDTO> {
 
 
     @Override

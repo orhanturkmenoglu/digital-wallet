@@ -28,7 +28,7 @@ public abstract class BaseEntity implements Serializable {
 
     @PrePersist
     public void prePersist() {
-        if (this.id == null){
+        if (this.id == null) {
             this.id = IdGenerator.generateId(this);
         }
         this.createdAt = LocalDateTime.now();
