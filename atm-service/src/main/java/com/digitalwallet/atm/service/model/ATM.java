@@ -2,7 +2,6 @@ package com.digitalwallet.atm.service.model;
 
 
 import com.digitalwallet.atm.service.enums.ATMType;
-
 import jakarta.persistence.*;
 import lombok.*;
 import org.digitalwallet.common.entity.BaseEntity;

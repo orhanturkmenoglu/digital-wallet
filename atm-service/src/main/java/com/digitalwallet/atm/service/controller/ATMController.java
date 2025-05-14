@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -42,6 +43,7 @@ public class ATMController {
         ATMResponseDTO atm = atmService.createATM(atmRequestDTO);
 
         ApiSuccessResponse<ATMResponseDTO> response = new ApiSuccessResponse<>(
+                LocalDateTime.now(),
                 HttpStatus.OK,
                 "ATMs successfully retrieved",
                 atm
@@ -67,6 +69,7 @@ public class ATMController {
         List<ATMResponseDTO> atms = atmService.getAllATMs();
 
         ApiSuccessResponse<List<ATMResponseDTO>> response = new ApiSuccessResponse<>(
+                LocalDateTime.now(),
                 HttpStatus.OK,
                 "ATMs successfully retrieved",
                 atms
@@ -93,6 +96,7 @@ public class ATMController {
         List<ATMResponseDTO> atms = atmService.findATMsByCity(city);
 
         ApiSuccessResponse<List<ATMResponseDTO>> response = new ApiSuccessResponse<>(
+                LocalDateTime.now(),
                 HttpStatus.OK,
                 "ATMs successfully retrieved by city",
                 atms
@@ -124,6 +128,7 @@ public class ATMController {
         atmService.deleteByBankIdAndAtmId(bankId, atmId);
 
         ApiSuccessResponse<Void> response = new ApiSuccessResponse<>(
+                LocalDateTime.now(),
                 HttpStatus.OK,
                 "ATM successfully deleted",
                 null
@@ -131,3 +136,4 @@ public class ATMController {
         return ResponseEntity.ok(response);
     }
 }
+

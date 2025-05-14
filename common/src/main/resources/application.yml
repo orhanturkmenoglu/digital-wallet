@@ -1,0 +1,12 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: COMMON-SERVICE
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+

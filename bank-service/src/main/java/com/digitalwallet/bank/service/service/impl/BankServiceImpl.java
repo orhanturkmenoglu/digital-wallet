@@ -13,6 +13,9 @@ import com.digitalwallet.bank.service.repository.BankRepository;
 import com.digitalwallet.bank.service.service.BankService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -49,6 +52,7 @@ public class BankServiceImpl implements BankService {
         return bankMapper.toResponseDTO(savedBank);
     }
 
+    @Cacheable(value = "getAllBanks")
     @Override
     public List<BankResponseDTO> getAllBanks() {
         List<Bank> bankList = bankRepository.findAll();
@@ -56,6 +60,7 @@ public class BankServiceImpl implements BankService {
         return bankMapper.toResponseDTOList(bankList);
     }
 
+    @Cacheable(value = "getBankById", key = "#id")
     @Override
     public BankResponseDTO getBankById(String id) {
         validateParameter(id);
@@ -67,6 +72,7 @@ public class BankServiceImpl implements BankService {
         return bankMapper.toResponseDTO(bank);
     }
 
+    @CachePut(value = "getBankById", key = "#id")
     @Override
     public BankResponseDTO updateBank(String id, BankRequestDTO bankRequestDTO) {
 
@@ -96,11 +102,14 @@ public class BankServiceImpl implements BankService {
         return bankMapper.toResponseDTO(savedBank);
     }
 
+    @CacheEvict(value = "getBankById", key = "#id")
     @Override
     public void deleteBankById(String id) {
         validateParameter(id);
 
-        BankResponseDTO bank = getBankById(id);
+        Bank bank = bankRepository.findById(id).orElseThrow(
+                () -> new BankNotFoundException("Bank with id " + id + " not found"));
+
         log.info("Deleted bank: {}", bank);
 
         bankRepository.deleteById(bank.getId());

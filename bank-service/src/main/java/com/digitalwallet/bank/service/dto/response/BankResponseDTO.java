@@ -4,6 +4,7 @@ import com.digitalwallet.bank.service.enums.BankCode;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BankResponseDTO {
+public class BankResponseDTO implements Serializable {
 
     private String id;
 
