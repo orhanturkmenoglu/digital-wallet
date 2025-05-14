@@ -2,7 +2,6 @@ package com.digitalwallet.atm.service.controller;
 
 import com.digitalwallet.atm.service.dto.request.ATMRequestDTO;
 import com.digitalwallet.atm.service.dto.response.ATMResponseDTO;
-import com.digitalwallet.atm.service.exception.ApiSuccessResponse;
 import com.digitalwallet.atm.service.service.ATMService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.digitalwallet.common.exception.ApiSuccessResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,9 +38,16 @@ public class ATMController {
                     content = @Content)
     })
     @PostMapping
-    public ResponseEntity<ATMResponseDTO> createATM(@Valid @RequestBody ATMRequestDTO atmRequestDTO) {
+    public ResponseEntity<ApiSuccessResponse<ATMResponseDTO>> createATM(@Valid @RequestBody ATMRequestDTO atmRequestDTO) {
         ATMResponseDTO atm = atmService.createATM(atmRequestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(atm);
+
+        ApiSuccessResponse<ATMResponseDTO> response = new ApiSuccessResponse<>(
+                HttpStatus.OK,
+                "ATMs successfully retrieved",
+                atm
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
 
@@ -56,9 +63,16 @@ public class ATMController {
                     content = @Content)
     })
     @GetMapping("/all")
-    public ResponseEntity<List<ATMResponseDTO>> getAllATMs() {
+    public ResponseEntity<ApiSuccessResponse<List<ATMResponseDTO>>> getAllATMs() {
         List<ATMResponseDTO> atms = atmService.getAllATMs();
-        return ResponseEntity.ok(atms);
+
+        ApiSuccessResponse<List<ATMResponseDTO>> response = new ApiSuccessResponse<>(
+                HttpStatus.OK,
+                "ATMs successfully retrieved",
+                atms
+        );
+
+        return ResponseEntity.ok(response);
     }
 
     @Operation(
@@ -75,9 +89,16 @@ public class ATMController {
                     content = @Content)
     })
     @GetMapping("/by-city")
-    public ResponseEntity<List<ATMResponseDTO>> getATMsByCity(@RequestParam("city") String city) {
+    public ResponseEntity<ApiSuccessResponse<List<ATMResponseDTO>>> getATMsByCity(@RequestParam("city") String city) {
         List<ATMResponseDTO> atms = atmService.findATMsByCity(city);
-        return ResponseEntity.ok(atms);
+
+        ApiSuccessResponse<List<ATMResponseDTO>> response = new ApiSuccessResponse<>(
+                HttpStatus.OK,
+                "ATMs successfully retrieved by city",
+                atms
+        );
+
+        return ResponseEntity.ok(response);
     }
 
 
@@ -100,7 +121,13 @@ public class ATMController {
     public ResponseEntity<ApiSuccessResponse<Void>> deleteByBankIdAndAtmId(@PathVariable
                                                                            String bankId,
                                                                            @PathVariable String atmId) {
-        ApiSuccessResponse<Void> response = atmService.deleteByBankIdAndAtmId(bankId, atmId);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        atmService.deleteByBankIdAndAtmId(bankId, atmId);
+
+        ApiSuccessResponse<Void> response = new ApiSuccessResponse<>(
+                HttpStatus.OK,
+                "ATM successfully deleted",
+                null
+        );
+        return ResponseEntity.ok(response);
     }
 }

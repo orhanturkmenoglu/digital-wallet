@@ -5,7 +5,6 @@ import com.digitalwallet.atm.service.dto.request.ATMUpdateRequestDTO;
 import com.digitalwallet.atm.service.dto.response.ATMResponseDTO;
 import com.digitalwallet.atm.service.exception.ATMInvalidParametersException;
 import com.digitalwallet.atm.service.exception.ATMNotFoundException;
-import com.digitalwallet.atm.service.exception.ApiSuccessResponse;
 import com.digitalwallet.atm.service.mapper.ATMMapper;
 import com.digitalwallet.atm.service.mapper.ATMServiceCodeMapper;
 import com.digitalwallet.atm.service.mapper.AddressMapper;
@@ -20,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.digitalwallet.common.exception.BankNotFoundException;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +26,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -78,18 +75,10 @@ public class ATMServiceImpl implements ATMService {
     }
 
     @Override
-    public ApiSuccessResponse<Void> deleteByBankIdAndAtmId(String bankId, String atmId) {
+    public void deleteByBankIdAndAtmId(String bankId, String atmId) {
         validateBankAndAtmIds(bankId, atmId);
-
         atmRepository.deleteByAtmIdAndBankId(atmId, bankId);
-
         log.info("Deleted ATM with ID: {} and Bank ID: {}", atmId, bankId);
-
-        return ApiSuccessResponse.<Void>builder()
-                .timeStamp(LocalDateTime.now())
-                .status(HttpStatus.OK.value())
-                .message("ATM with ID " + atmId + " and Bank ID " + bankId + " deleted successfully")
-                .build();
     }
 
     @Override

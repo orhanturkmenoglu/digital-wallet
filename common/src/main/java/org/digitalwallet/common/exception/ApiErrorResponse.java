@@ -1,4 +1,4 @@
-package com.digitalwallet.atm.service.exception;
+package org.digitalwallet.common.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,5 +18,4 @@ public class ApiErrorResponse {
     private String message;
     private String errorCode;
     private String path;
-
 }

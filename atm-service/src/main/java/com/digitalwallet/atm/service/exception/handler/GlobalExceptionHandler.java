@@ -2,6 +2,7 @@ package com.digitalwallet.atm.service.exception.handler;
 
 import com.digitalwallet.atm.service.exception.*;
 import jakarta.validation.ValidationException;
+import org.digitalwallet.common.exception.ApiErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
