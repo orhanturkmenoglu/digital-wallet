@@ -33,7 +33,7 @@
 
 		<dependency>
 			<groupId>org.digital-wallet</groupId>
-			<artifactId>common</artifactId>
+			<artifactId>common-lib</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>

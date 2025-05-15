@@ -28,7 +28,7 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
-        <module name="common" />
+        <module name="common-lib" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -46,7 +46,7 @@
       <module name="auth-service" options="-parameters" />
       <module name="bank-service" options="-parameters" />
       <module name="card-service" options="-parameters" />
-      <module name="common" options="-parameters" />
+      <module name="common-lib" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="customer-service" options="-parameters" />
       <module name="notification-service" options="-parameters" />
