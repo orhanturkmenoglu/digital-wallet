@@ -8,6 +8,7 @@ import com.digitalwallet.atm.service.repository.ATMServiceCodeRepository;
 import com.digitalwallet.atm.service.service.ATMServiceCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 
@@ -23,6 +24,7 @@ public class ATMServiceCodeImpl implements ATMServiceCode {
     private final ATMServiceCodeRepository atmServiceCodeRepository;
 
     @Override
+    @Cacheable(value = "atmServiceCodes")
     public List<ATMServiceCodeResponseDTO> getAllATMServiceCodes() {
 
         List<ATMServiceCodeResponseDTO> serviceCodeResponseDTOList = atmServiceCodeRepository.findAll()
@@ -42,6 +44,7 @@ public class ATMServiceCodeImpl implements ATMServiceCode {
     }
 
     @Override
+    @Cacheable(value = "atmServiceCodeById", key = "#id")
     public Optional<ATMServiceCodeResponseDTO> findATMServiceCodeById(String id) {
         if (id == null || id.trim().isEmpty()) {
             log.error("ATM Service Code ID cannot be null or empty");
@@ -60,6 +63,7 @@ public class ATMServiceCodeImpl implements ATMServiceCode {
     }
 
     @Override
+    @Cacheable(value = "atmServiceCodeByServiceCode", key = "#serviceCode")
     public Optional<ATMServiceCodeResponseDTO> findByServiceCode (String serviceCode) {
         if (serviceCode == null || serviceCode.trim().isEmpty()) {
             log.error("Service code cannot be null or empty");

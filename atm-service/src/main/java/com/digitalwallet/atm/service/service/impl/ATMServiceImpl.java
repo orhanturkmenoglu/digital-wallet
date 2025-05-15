@@ -18,6 +18,9 @@ import com.digitalwallet.atm.service.service.ATMService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.digitalwallet.common.exception.BankNotFoundException;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -74,6 +77,7 @@ public class ATMServiceImpl implements ATMService {
         return atmMapper.toResponseDTO(savedATM);
     }
 
+    @CacheEvict(value = "getATMByID", key = "#atmId", allEntries = true)
     @Override
     public void deleteByBankIdAndAtmId(String bankId, String atmId) {
         validateBankAndAtmIds(bankId, atmId);
@@ -81,6 +85,7 @@ public class ATMServiceImpl implements ATMService {
         log.info("Deleted ATM with ID: {} and Bank ID: {}", atmId, bankId);
     }
 
+    @Cacheable(value = "getATMByID", key = "#atmId")
     @Override
     public ATMResponseDTO getATMbyID(String atmId) {
         validateAtmId(atmId);
@@ -93,6 +98,7 @@ public class ATMServiceImpl implements ATMService {
     }
 
     @Transactional
+    @CachePut(value = "getATMByID", key = "#atmId")
     @Override
     public ATMResponseDTO updateATM(String atmId, ATMUpdateRequestDTO atmUpdateRequestDTO) {
         validateAtmId(atmId);
@@ -107,6 +113,7 @@ public class ATMServiceImpl implements ATMService {
         return atmMapper.toResponseDTO(updatedAtm);
     }
 
+    @Cacheable(value = "getAllATMs")
     @Override
     public List<ATMResponseDTO> getAllATMs() {
         List<ATM> atmList = atmRepository.findAll();
@@ -119,6 +126,7 @@ public class ATMServiceImpl implements ATMService {
         return atmMapper.toResponseDTOList(atmList);
     }
 
+    @Cacheable(value = "getATMsByCity", key = "#city")
     @Override
     public List<ATMResponseDTO> findATMsByCity(String city) {
         validateCity(city);

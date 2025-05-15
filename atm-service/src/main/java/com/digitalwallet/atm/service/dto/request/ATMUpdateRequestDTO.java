@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -17,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "DTO representing ATM request details for creating or updating an ATM.")
-public class ATMUpdateRequestDTO {
+public class ATMUpdateRequestDTO implements Serializable {
 
     @NotNull(message = "Bank ID cannot be null")
     @Size(min = 3, max = 50, message = "Bank ID must be between 3 and 50 characters")

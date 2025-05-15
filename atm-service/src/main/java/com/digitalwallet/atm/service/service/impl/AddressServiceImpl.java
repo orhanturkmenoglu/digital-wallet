@@ -9,6 +9,7 @@ import com.digitalwallet.atm.service.repository.AddressRepository;
 import com.digitalwallet.atm.service.service.AddressService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
+    @Cacheable(value = "addressById", key = "#addressId")
     public Optional<AddressResponseDTO> findAddressesById(String addressId) {
 
         if (addressId == null) {
@@ -40,6 +42,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    @Cacheable(value = "allAddressesSortedByLine1")
     public List<AddressResponseDTO> getAllAddressesOrderByLine1() {
 
         List<Address> addressList = addressRepository
@@ -60,6 +63,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    @Cacheable(value = "addressesByCity", key = "#city")
     public List<AddressResponseDTO> findAddressesByCity(String city) {
         if (city == null) {
             log.error("City cannot be null");
@@ -77,6 +81,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    @Cacheable(value = "addressesByPostCode", key = "#postCode")
     public List<AddressResponseDTO> findAddressesByPostCode(String postCode) {
 
         if (postCode == null) {
@@ -98,6 +103,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    @Cacheable(value = "addressesByCountryCode", key = "#countryCode")
     public List<AddressResponseDTO> findAddressesByCountryCode(String countryCode) {
         if (countryCode == null) {
             log.error("Country code cannot be null");
@@ -118,6 +124,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    @Cacheable(value = "addressesByState", key = "#state")
     public List<AddressResponseDTO> findAddressesByState(String state) {
         if (state == null) {
             log.error("State cannot be null");
@@ -138,6 +145,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    @Cacheable(value = "addressesByLine1", key = "#line1")
     public List<AddressResponseDTO> findAddressesByLine1(String line1) {
         if (line1 == null) {
             log.error("Line1 cannot be null");
@@ -158,6 +166,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    @Cacheable(value = "addressesByLine2", key = "#line2")
     public List<AddressResponseDTO> findAddressesByLine2(String line2) {
         if (line2 == null) {
             log.error("Line2 cannot be null");

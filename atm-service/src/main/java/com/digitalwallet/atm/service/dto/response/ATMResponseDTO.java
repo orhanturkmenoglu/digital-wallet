@@ -4,6 +4,7 @@ import com.digitalwallet.atm.service.enums.ATMType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ATMResponseDTO {
+public class ATMResponseDTO implements Serializable {
     @JsonProperty("atm_id")
     private String id;
 

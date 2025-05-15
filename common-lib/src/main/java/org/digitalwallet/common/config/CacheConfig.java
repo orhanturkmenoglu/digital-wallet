@@ -1,5 +1,8 @@
 package org.digitalwallet.common.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
@@ -62,13 +65,22 @@ public class CacheConfig {
      */
     @Bean
     public RedisCacheConfiguration redisCacheConfiguration() {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        // Tarihleri ISO formatında yaz, timestamp olarak değil
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        GenericJackson2JsonRedisSerializer jackson2JsonRedisSerializer =
+                new GenericJackson2JsonRedisSerializer(objectMapper);
+
         return RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofHours(30))
                 .serializeKeysWith(
                         RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer())
                 )
                 .serializeValuesWith(
-                        RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())
+                        RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer)
                 );
     }
 

@@ -8,12 +8,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "DTO representing the geographic location with latitude and longitude.")
-public class LocationRequestDTO {
+public class LocationRequestDTO implements Serializable {
 
     @DecimalMin(value = "-90.0", inclusive = true, message = "Latitude must be between -90 and 90")
     @DecimalMax(value = "90.0", inclusive = true, message = "Latitude must be between -90 and 90")

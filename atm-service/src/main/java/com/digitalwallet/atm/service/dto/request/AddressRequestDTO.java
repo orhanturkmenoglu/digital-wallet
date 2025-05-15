@@ -6,13 +6,15 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Schema(description = "DTO representing the address details of an ATM.")
-public class AddressRequestDTO {
+public class AddressRequestDTO implements Serializable {
 
     @NotNull(message = "Line 1 cannot be null or empty")
     @Schema(description = "First line of the address", example = "123 Main St", required = true)

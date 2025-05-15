@@ -3,6 +3,7 @@ package com.digitalwallet.atm.service.dto.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AddressResponseDTO {
+public class AddressResponseDTO implements Serializable {
     @JsonProperty("address_id")
     private String id;
 

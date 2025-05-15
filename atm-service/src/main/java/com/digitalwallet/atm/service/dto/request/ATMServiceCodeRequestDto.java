@@ -8,12 +8,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "DTO representing the service code request for a specific ATM.")
-public class ATMServiceCodeRequestDto {
+public class ATMServiceCodeRequestDto implements Serializable {
 
     @NotNull(message = "Service code cannot be null or empty")
     @Size(min = 3, max = 10, message = "Service code must be between 3 and 10 characters")

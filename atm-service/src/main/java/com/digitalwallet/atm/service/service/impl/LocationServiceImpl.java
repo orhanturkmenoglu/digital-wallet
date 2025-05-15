@@ -9,6 +9,7 @@ import com.digitalwallet.atm.service.repository.LocationRepository;
 import com.digitalwallet.atm.service.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class LocationServiceImpl implements LocationService {
     private final LocationRepository locationRepository;
 
     @Override
+    @Cacheable(value = "allLocations")
     public List<LocationResponseDTO> findAllLocations() {
         List<Location> locations = locationRepository.findAll();
 
@@ -36,6 +38,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
+    @Cacheable(value = "locationById", key = "#locationId")
     public Optional<LocationResponseDTO> findLocationById(String locationId) {
         if (locationId == null) {
             log.error("Location ID cannot be null");
@@ -52,6 +55,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
+    @Cacheable(value = "locationByCoordinates", key = "T(java.util.Objects).hash(#latitude, #longitude)")
     public Optional<LocationResponseDTO> findLocationByLatitudeAndLongitude(double latitude, double longitude) {
         Optional<Location> location = locationRepository.findByLatitudeAndLongitude(latitude, longitude);
 
